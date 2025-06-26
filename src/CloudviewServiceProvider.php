@@ -3,7 +3,10 @@
 namespace Jasontorres\CloudView;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Route; // Import Route facade
+use Illuminate\Support\Facades\Route;
+use Jasontorres\CloudView\Console\Commands\ShowCloudviewLogo;
+use function config_path; // Explicitly import global helper function for static analysis
+use function public_path; // Explicitly import global helper function for static analysis
 
 class CloudviewServiceProvider extends ServiceProvider
 {
@@ -38,14 +41,21 @@ class CloudviewServiceProvider extends ServiceProvider
         // Ensure the path is correct relative to the service provider
         $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
 
-        // Publish public assets (compiled React JS/CSS) to the main app's public directory
+        // Publish public assets (compiled JS/CSS)
         $this->publishes([
             __DIR__.'/../public' => public_path('vendor/cloudview'),
         ], 'cloudview-assets');
 
-        // Optionally publish config file (if you create config/cloudview.php)
+        // Optionally publish configuration
         $this->publishes([
             __DIR__.'/../config/cloudview.php' => config_path('cloudview.php'),
         ], 'cloudview-config');
+
+        // Register Artisan commands
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                ShowCloudviewLogo::class,
+            ]);
+        }
     }
 }
