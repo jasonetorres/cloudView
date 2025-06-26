@@ -11,6 +11,6 @@
     <div id="cloudview-root"></div>
 
     <!-- Load compiled React JavaScript -->
-    <script src="{{ asset('vendor/cloudview/js/app.js') }}"></script>
+    <script src="{{ asset('vendor/cloudview/js/app.js') }}type="module""></script>
 </body>
 </html>
