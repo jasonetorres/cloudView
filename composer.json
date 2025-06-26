@@ -1,5 +1,5 @@
 {
-    "name": "jasontorres/cloudView",
+    "name": "cloudView",
     "description": "GUI to view database info in laravel cloud",
     "type": "library",
     "license": "MIT",
