@@ -1,9 +1,10 @@
 const mix = require('laravel-mix');
 const tailwindcss = require('tailwindcss');
 
-mix.js('public/js/bootstrap.js', 'public/js')
+// Corrected: Input path should be from 'resources/js/'
+mix.js('resources/js/bootstrap.js', 'public/js') // Input path and output directory
    .react() // Chain .react() here
-   .postCss('public/css/app.css', 'public/css', [
+   .postCss('resources/css/app.css', 'public/css', [
        tailwindcss('./tailwind.config.js'),
        require('autoprefixer'),
    ])
