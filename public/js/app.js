@@ -34847,11 +34847,13 @@ var App = function App() {
     _useState2 = _slicedToArray(_useState, 2),
     dbConfig = _useState2[0],
     setDbConfig = _useState2[1];
+
   // State to track if a custom connection has been attempted/set
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState4 = _slicedToArray(_useState3, 2),
     isCustomConnected = _useState4[0],
     setIsCustomConnected = _useState4[1];
+
   // State for the currently active database connection details (useful for display or re-use)
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState6 = _slicedToArray(_useState5, 2),
@@ -34863,11 +34865,13 @@ var App = function App() {
     _useState8 = _slicedToArray(_useState7, 2),
     tableList = _useState8[0],
     setTableList = _useState8[1];
+
   // State to hold data for the currently selected table
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
     _useState0 = _slicedToArray(_useState9, 2),
     selectedTableData = _useState0[0],
     setSelectedTableData = _useState0[1];
+
   // State for the currently selected table name
   var _useState1 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState10 = _slicedToArray(_useState1, 2),
@@ -34879,11 +34883,13 @@ var App = function App() {
     _useState12 = _slicedToArray(_useState11, 2),
     isLoadingTables = _useState12[0],
     setIsLoadingTables = _useState12[1]; // Initially false, as user needs to connect
+
   // State to manage loading status for selected table data
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState14 = _slicedToArray(_useState13, 2),
     isLoadingTableData = _useState14[0],
     setIsLoadingTableData = _useState14[1];
+
   // State to manage any errors during data fetching or connection attempts
   var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
     _useState16 = _slicedToArray(_useState15, 2),
@@ -34904,12 +34910,12 @@ var App = function App() {
   };
 
   /**
-   * Constructs the common fetch options (headers and body) for API requests.
-   * Includes dynamic database connection details if available.
-   * @param {string} method - HTTP method (e.g., 'GET', 'POST').
-   * @param {object} dataToSend - Data to be sent in the request body (for POST) or query string (for GET).
-   * @returns {object} Fetch options.
-   */
+  * Constructs the common fetch options (headers and body) for API requests.
+  * Includes dynamic database connection details if available.
+  * @param {string} method - HTTP method (e.g., 'GET', 'POST').
+  * @param {object} dataToSend - Data to be sent in the request body (for POST) or query string (for GET).
+  * @returns {object} Fetch options.
+  */
   var getFetchOptions = function getFetchOptions() {
     var method = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'GET';
     var dataToSend = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
@@ -34933,10 +34939,10 @@ var App = function App() {
   };
 
   /**
-   * Fetches the list of all database tables from the Laravel backend.
-   * Can be triggered by the "Connect" button or on initial load.
-   * @param {object} configToUse - The database config to use for this fetch (null for default app DB).
-   */
+  * Fetches the list of all database tables from the Laravel backend.
+  * Can be triggered by the "Connect" button or on initial load.
+  * @param {object} configToUse - The database config to use for this fetch (null for default app DB).
+  */
   var fetchTableList = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
       var configToUse,
@@ -35037,9 +35043,9 @@ var App = function App() {
   }();
 
   /**
-   * Fetches data for a specific table from the Laravel backend.
-   * @param {string} tableName - The name of the table to fetch data for.
-   */
+  * Fetches data for a specific table from the Laravel backend.
+  * @param {string} tableName - The name of the table to fetch data for.
+  */
   var fetchTableData = /*#__PURE__*/function () {
     var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(tableName) {
       var options, response, errorData, data, _t2;
@@ -35103,8 +35109,8 @@ var App = function App() {
   }();
 
   /**
-   * Handles CSV export by initiating a download from the Laravel backend.
-   */
+  * Handles CSV export by initiating a download from the Laravel backend.
+  */
   var handleExportCsv = function handleExportCsv() {
     if (selectedTable && activeDbDetails) {
       // For CSV export (which is a download), it's generally a GET request.
@@ -35141,33 +35147,65 @@ var App = function App() {
     fetchTableList(dbConfig);
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    className: "min-h-screen bg-gray-100 p-4 font-sans antialiased",
+    className: "min-h-screen bg-gradient-to-br from-slate-50 to-gray-100 p-4 font-sans antialiased",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-      className: "max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6 sm:p-8",
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
-        className: "text-3xl sm:text-4xl font-extrabold text-gray-900 mb-6 text-center text-blue-800",
-        children: "Laravel CloudView Database GUI"
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-        className: "text-center text-gray-600 mb-8",
-        children: "View your Laravel application's database or connect to an external one."
+      className: "max-w-7xl mx-auto",
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "bg-white/80 backdrop-blur-sm shadow-xl rounded-2xl p-8 mb-8 border border-gray-200/50",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "text-center",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
+            className: "text-4xl sm:text-5xl font-bold bg-gradient-to-r from-red-600 via-orange-500 to-yellow-500 bg-clip-text text-transparent mb-4",
+            children: "Laravel CloudView"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+            className: "text-xl text-gray-600 font-medium",
+            children: "Database Management Interface"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+            className: "text-gray-500 mt-2",
+            children: "Connect to your Laravel application's database or manage external databases"
+          })]
+        })
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-        className: "bg-blue-50 p-6 rounded-lg shadow-inner mb-8",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h2", {
-          className: "text-2xl font-bold text-blue-700 mb-4 text-center",
-          children: "Connect to Database"
+        className: "bg-white/90 backdrop-blur-sm shadow-2xl rounded-2xl p-8 mb-8 border border-gray-200/50",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "flex items-center justify-center mb-6",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+            className: "bg-gradient-to-r from-blue-500 to-indigo-600 p-3 rounded-xl shadow-lg",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("svg", {
+              className: "w-6 h-6 text-white",
+              fill: "none",
+              stroke: "currentColor",
+              viewBox: "0 0 24 24",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+                strokeWidth: 2,
+                d: "M4 7v10c0 2.21 1.79 4 4 4h8c0-2.21-1.79-4-4-4H4V7z"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+                strokeWidth: 2,
+                d: "M4 7c0-2.21 1.79-4 4-4h8c2.21 0 4 1.79 4 4v10c0 2.21-1.79 4-4 4"
+              })]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h2", {
+            className: "text-2xl font-bold text-gray-800 ml-4",
+            children: "Database Connection"
+          })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-          className: "grid grid-cols-1 md:grid-cols-2 gap-4 mb-4",
+          className: "grid grid-cols-1 md:grid-cols-2 gap-6 mb-8",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            className: "space-y-2",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
               htmlFor: "db_connection",
-              className: "block text-sm font-medium text-gray-700",
-              children: "Driver"
+              className: "block text-sm font-semibold text-gray-700",
+              children: "Database Driver"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
               id: "db_connection",
               name: "db_connection",
               value: dbConfig.db_connection,
               onChange: handleConfigChange,
-              className: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm",
+              className: "w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 bg-white/80 backdrop-blur-sm hover:shadow-md",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
                 value: "mysql",
                 children: "MySQL"
@@ -35183,37 +35221,40 @@ var App = function App() {
               })]
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            className: "space-y-2",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
               htmlFor: "db_host",
-              className: "block text-sm font-medium text-gray-700",
-              children: "Host"
+              className: "block text-sm font-semibold text-gray-700",
+              children: "Host Address"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
               type: "text",
               id: "db_host",
               name: "db_host",
               value: dbConfig.db_host,
               onChange: handleConfigChange,
-              placeholder: "e.g., your-db-host.cloud.com",
-              className: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              placeholder: "your-database-host.com",
+              className: "w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 bg-white/80 backdrop-blur-sm hover:shadow-md"
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            className: "space-y-2",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
               htmlFor: "db_port",
-              className: "block text-sm font-medium text-gray-700",
-              children: "Port"
+              className: "block text-sm font-semibold text-gray-700",
+              children: "Port Number"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
               type: "text",
               id: "db_port",
               name: "db_port",
               value: dbConfig.db_port,
               onChange: handleConfigChange,
-              placeholder: "e.g., 5432 (PGSQL), 3306 (MySQL)",
-              className: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              placeholder: "5432, 3306, etc.",
+              className: "w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 bg-white/80 backdrop-blur-sm hover:shadow-md"
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            className: "space-y-2",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
               htmlFor: "db_database",
-              className: "block text-sm font-medium text-gray-700",
+              className: "block text-sm font-semibold text-gray-700",
               children: "Database Name"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
               type: "text",
@@ -35221,13 +35262,14 @@ var App = function App() {
               name: "db_database",
               value: dbConfig.db_database,
               onChange: handleConfigChange,
-              placeholder: "e.g., main",
-              className: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              placeholder: "main, production, etc.",
+              className: "w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 bg-white/80 backdrop-blur-sm hover:shadow-md"
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            className: "space-y-2",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
               htmlFor: "db_username",
-              className: "block text-sm font-medium text-gray-700",
+              className: "block text-sm font-semibold text-gray-700",
               children: "Username"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
               type: "text",
@@ -35235,125 +35277,278 @@ var App = function App() {
               name: "db_username",
               value: dbConfig.db_username,
               onChange: handleConfigChange,
-              placeholder: "e.g., laravel",
-              className: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              placeholder: "database username",
+              className: "w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 bg-white/80 backdrop-blur-sm hover:shadow-md"
             })]
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            className: "space-y-2",
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
               htmlFor: "db_password",
-              className: "block text-sm font-medium text-gray-700",
+              className: "block text-sm font-semibold text-gray-700",
               children: "Password"
             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
-              type: "password" // Use type="password" for security
-              ,
+              type: "password",
               id: "db_password",
               name: "db_password",
               value: dbConfig.db_password,
               onChange: handleConfigChange,
-              className: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+              placeholder: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022",
+              className: "w-full px-4 py-3 border border-gray-300 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200 bg-white/80 backdrop-blur-sm hover:shadow-md"
             })]
           })]
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          className: "flex justify-center mt-6",
+          className: "flex justify-center",
           children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
             onClick: handleConnect,
             disabled: isLoadingTables || isLoadingTableData,
-            className: "px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 ease-in-out transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed",
-            children: "Connect to Database"
-          })
-        })]
-      }), activeDbDetails ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("p", {
-        className: "text-center text-sm text-gray-500 mb-4",
-        children: ["Currently connected to: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
-          className: "font-semibold text-gray-800",
-          children: [activeDbDetails.db_username, "@", activeDbDetails.db_host, ":", activeDbDetails.db_port, "/", activeDbDetails.db_database, " (", activeDbDetails.db_connection, ")"]
-        })]
-      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-        className: "text-center text-sm text-gray-500 mb-4",
-        children: "Not connected to a custom database. Viewing application's default DB."
-      }), (isLoadingTables || isLoadingTableData) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-        className: "flex flex-col items-center justify-center py-12",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          className: "animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-          className: "mt-4 text-lg text-blue-600",
-          children: isLoadingTables ? "Connecting and loading tables..." : "Loading table data..."
-        })]
-      }), error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-        className: "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-md relative mb-6 text-center",
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("strong", {
-          className: "font-bold",
-          children: "Error!"
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-          className: "block sm:inline ml-2",
-          children: error
-        })]
-      }), !isLoadingTables && !error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-        className: "pt-4",
-        children: [" ", tableList.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-          className: "mb-8 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
-            htmlFor: "table-select",
-            className: "text-lg font-medium text-gray-700",
-            children: "Select Table:"
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("select", {
-            id: "table-select",
-            value: selectedTable,
-            onChange: function onChange(e) {
-              return setSelectedTable(e.target.value);
-            },
-            className: "mt-1 block w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base appearance-none bg-white pr-8 transition-colors duration-200 hover:border-blue-400",
-            disabled: isLoadingTables || tableList.length === 0,
-            children: tableList.map(function (tableName) {
-              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
-                value: tableName,
-                children: tableName
-              }, tableName);
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
-            onClick: handleExportCsv,
-            className: "px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-300 ease-in-out transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed",
-            disabled: !selectedTable || isLoadingTableData,
-            children: "Export to CSV"
-          })]
-        }), selectedTable && selectedTableData.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          className: "overflow-x-auto rounded-lg shadow-md border border-gray-200",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
-            className: "min-w-full divide-y divide-gray-200",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
-              className: "bg-gray-50",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tr", {
-                children: Object.keys(selectedTableData[0] || {}).map(function (key) {
-                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
-                    scope: "col",
-                    className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
-                    children: [key.replace(/_/g, ' '), " "]
-                  }, key);
+            className: "px-8 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:ring-offset-2 transition-all duration-300 ease-in-out transform hover:scale-105 hover:from-blue-700 hover:to-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+              className: "flex items-center",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+                className: "w-5 h-5 mr-2",
+                fill: "none",
+                stroke: "currentColor",
+                viewBox: "0 0 24 24",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+                  strokeLinecap: "round",
+                  strokeLinejoin: "round",
+                  strokeWidth: 2,
+                  d: "M13 10V3L4 14h7v7l9-11h-7z"
                 })
-              })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
-              className: "bg-white divide-y divide-gray-200",
-              children: selectedTableData.map(function (row, rowIndex) {
-                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tr", {
-                  className: "hover:bg-gray-50 transition-colors duration-200",
-                  children: Object.values(row).map(function (value, colIndex) {
-                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
-                      className: "px-6 py-4 whitespace-nowrap text-sm text-gray-700",
-                      children: [String(value), " "]
-                    }, colIndex);
-                  })
-                }, rowIndex);
-              })
-            })]
+              }), "Connect to Database"]
+            })
           })
-        }) :
-        // Messages for no data or no table selected
-        tableList.length > 0 && selectedTable === '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          className: "text-center py-12 text-gray-500 text-lg",
-          children: "Please select a table from the dropdown above to view its data."
-        }) : !isLoadingTables && !isLoadingTableData && tableList.length === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-          className: "text-center py-12 text-gray-500 text-lg",
-          children: "No tables available. Connect to a database using the form above or check your application's default database."
+        })]
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "bg-white/70 backdrop-blur-sm shadow-lg rounded-xl p-6 mb-8 border border-gray-200/50",
+        children: activeDbDetails ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "flex items-center justify-center text-emerald-700 bg-emerald-50/80 rounded-lg p-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+            className: "w-5 h-5 mr-2",
+            fill: "none",
+            stroke: "currentColor",
+            viewBox: "0 0 24 24",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+              strokeLinecap: "round",
+              strokeLinejoin: "round",
+              strokeWidth: 2,
+              d: "M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+            className: "font-medium",
+            children: ["Connected to: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+              className: "font-bold",
+              children: [activeDbDetails.db_username, "@", activeDbDetails.db_host, ":", activeDbDetails.db_port, "/", activeDbDetails.db_database]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+              className: "ml-2 px-2 py-1 bg-emerald-100 text-xs rounded-full",
+              children: activeDbDetails.db_connection.toUpperCase()
+            })]
+          })]
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "flex items-center justify-center text-gray-600 bg-gray-50/80 rounded-lg p-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+            className: "w-5 h-5 mr-2",
+            fill: "none",
+            stroke: "currentColor",
+            viewBox: "0 0 24 24",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+              strokeLinecap: "round",
+              strokeLinejoin: "round",
+              strokeWidth: 2,
+              d: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+            className: "font-medium",
+            children: "Using application's default database connection"
+          })]
+        })
+      }), (isLoadingTables || isLoadingTableData) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "bg-white/80 backdrop-blur-sm shadow-xl rounded-2xl p-12 mb-8 border border-gray-200/50",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "flex flex-col items-center justify-center",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            className: "relative",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+              className: "animate-spin rounded-full h-16 w-16 border-4 border-blue-200"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+              className: "animate-spin rounded-full h-16 w-16 border-4 border-blue-600 border-t-transparent absolute top-0"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+            className: "mt-6 text-lg font-medium text-gray-700",
+            children: isLoadingTables ? "Establishing connection and loading tables..." : "Loading table data..."
+          })]
+        })
+      }), error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+        className: "bg-red-50/90 backdrop-blur-sm border-l-4 border-red-500 shadow-lg rounded-xl p-6 mb-8",
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "flex items-start",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+            className: "w-6 h-6 text-red-500 mt-0.5 mr-3 flex-shrink-0",
+            fill: "none",
+            stroke: "currentColor",
+            viewBox: "0 0 24 24",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+              strokeLinecap: "round",
+              strokeLinejoin: "round",
+              strokeWidth: 2,
+              d: "M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+              className: "font-semibold text-red-800",
+              children: "Connection Error"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+              className: "text-red-700 mt-1",
+              children: error
+            })]
+          })]
+        })
+      }), !isLoadingTables && !error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "space-y-8",
+        children: [tableList.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "bg-white/90 backdrop-blur-sm shadow-xl rounded-2xl p-8 border border-gray-200/50",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            className: "flex flex-col lg:flex-row items-center justify-between gap-6 mb-8",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+              className: "flex items-center space-x-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+                className: "bg-gradient-to-r from-purple-500 to-pink-500 p-2 rounded-lg",
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+                  className: "w-6 h-6 text-white",
+                  fill: "none",
+                  stroke: "currentColor",
+                  viewBox: "0 0 24 24",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+                    strokeLinecap: "round",
+                    strokeLinejoin: "round",
+                    strokeWidth: 2,
+                    d: "M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"
+                  })
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+                  htmlFor: "table-select",
+                  className: "block text-lg font-semibold text-gray-700",
+                  children: "Select Table"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+                  className: "text-sm text-gray-500",
+                  children: "Choose a table to view its data"
+                })]
+              })]
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+              className: "flex items-center space-x-4",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("select", {
+                id: "table-select",
+                value: selectedTable,
+                onChange: function onChange(e) {
+                  return setSelectedTable(e.target.value);
+                },
+                className: "px-6 py-3 border border-gray-300 rounded-xl shadow-sm focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500 text-base bg-white/80 backdrop-blur-sm hover:shadow-md transition-all duration-200 min-w-[200px]",
+                disabled: isLoadingTables || tableList.length === 0,
+                children: tableList.map(function (tableName) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                    value: tableName,
+                    children: tableName
+                  }, tableName);
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+                onClick: handleExportCsv,
+                className: "px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:ring-offset-2 transition-all duration-300 ease-in-out transform hover:scale-105 hover:from-emerald-700 hover:to-teal-700 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none",
+                disabled: !selectedTable || isLoadingTableData,
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+                  className: "flex items-center",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+                    className: "w-5 h-5 mr-2",
+                    fill: "none",
+                    stroke: "currentColor",
+                    viewBox: "0 0 24 24",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+                      strokeLinecap: "round",
+                      strokeLinejoin: "round",
+                      strokeWidth: 2,
+                      d: "M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                    })
+                  }), "Export CSV"]
+                })
+              })]
+            })]
+          }), selectedTable && selectedTableData.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+            className: "bg-white/50 backdrop-blur-sm rounded-xl shadow-inner border border-gray-200/50 overflow-hidden",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+              className: "overflow-x-auto",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
+                className: "min-w-full divide-y divide-gray-200/50",
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
+                  className: "bg-gradient-to-r from-gray-50 to-gray-100/80 backdrop-blur-sm",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tr", {
+                    children: Object.keys(selectedTableData[0] || {}).map(function (key) {
+                      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("th", {
+                        scope: "col",
+                        className: "px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase tracking-wider border-r border-gray-200/30 last:border-r-0",
+                        children: key.replace(/_/g, ' ')
+                      }, key);
+                    })
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
+                  className: "bg-white/30 backdrop-blur-sm divide-y divide-gray-200/30",
+                  children: selectedTableData.map(function (row, rowIndex) {
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tr", {
+                      className: "hover:bg-white/60 transition-all duration-200 hover:shadow-sm",
+                      children: Object.values(row).map(function (value, colIndex) {
+                        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("td", {
+                          className: "px-6 py-4 whitespace-nowrap text-sm text-gray-800 border-r border-gray-200/20 last:border-r-0",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+                            className: "font-medium",
+                            children: String(value)
+                          })
+                        }, colIndex);
+                      })
+                    }, rowIndex);
+                  })
+                })]
+              })
+            })
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            className: "text-center py-16 text-gray-500",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+              className: "w-16 h-16 mx-auto mb-4 text-gray-300",
+              fill: "none",
+              stroke: "currentColor",
+              viewBox: "0 0 24 24",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+                strokeWidth: 1,
+                d: "M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+              className: "text-lg font-medium",
+              children: "No data to display"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+              className: "text-sm",
+              children: "Select a table from the dropdown above to view its contents"
+            })]
+          })]
+        }), !isLoadingTables && !isLoadingTableData && tableList.length === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "bg-white/80 backdrop-blur-sm shadow-xl rounded-2xl p-16 text-center border border-gray-200/50",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
+            className: "w-20 h-20 mx-auto mb-6 text-gray-300",
+            fill: "none",
+            stroke: "currentColor",
+            viewBox: "0 0 24 24",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
+              strokeLinecap: "round",
+              strokeLinejoin: "round",
+              strokeWidth: 1,
+              d: "M4 7v10c0 2.21 1.79 4 4 4h8c0-2.21-1.79-4-4-4H4V7z"
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h3", {
+            className: "text-xl font-semibold text-gray-700 mb-2",
+            children: "No Tables Found"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+            className: "text-gray-500",
+            children: "Connect to a database using the form above or check your application's default database configuration."
+          })]
         })]
       })]
     })
