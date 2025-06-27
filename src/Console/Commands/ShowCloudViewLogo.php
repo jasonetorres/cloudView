@@ -25,7 +25,7 @@ class ShowCloudviewLogo extends Command
         $this->info('#                                               #');
         $this->info('#################################################');
         $this->info(' ');
-        $this->info('To access the GUI, visit: /cloudview');
+        $this->info('To access the GUI, visit: /cloudview  that is it.');
         $this->info(' ');
 
         return Command::SUCCESS;
