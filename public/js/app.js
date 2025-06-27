@@ -34813,23 +34813,548 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _regenerator() { /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/babel/babel/blob/main/packages/babel-helpers/LICENSE */ var e, t, r = "function" == typeof Symbol ? Symbol : {}, n = r.iterator || "@@iterator", o = r.toStringTag || "@@toStringTag"; function i(r, n, o, i) { var c = n && n.prototype instanceof Generator ? n : Generator, u = Object.create(c.prototype); return _regeneratorDefine2(u, "_invoke", function (r, n, o) { var i, c, u, f = 0, p = o || [], y = !1, G = { p: 0, n: 0, v: e, a: d, f: d.bind(e, 4), d: function d(t, r) { return i = t, c = 0, u = e, G.n = r, a; } }; function d(r, n) { for (c = r, u = n, t = 0; !y && f && !o && t < p.length; t++) { var o, i = p[t], d = G.p, l = i[2]; r > 3 ? (o = l === n) && (u = i[(c = i[4]) ? 5 : (c = 3, 3)], i[4] = i[5] = e) : i[0] <= d && ((o = r < 2 && d < i[1]) ? (c = 0, G.v = n, G.n = i[1]) : d < l && (o = r < 3 || i[0] > n || n > l) && (i[4] = r, i[5] = n, G.n = l, c = 0)); } if (o || r > 1) return a; throw y = !0, n; } return function (o, p, l) { if (f > 1) throw TypeError("Generator is already running"); for (y && 1 === p && d(p, l), c = p, u = l; (t = c < 2 ? e : u) || !y;) { i || (c ? c < 3 ? (c > 1 && (G.n = -1), d(c, u)) : G.n = u : G.v = u); try { if (f = 2, i) { if (c || (o = "next"), t = i[o]) { if (!(t = t.call(i, u))) throw TypeError("iterator result is not an object"); if (!t.done) return t; u = t.value, c < 2 && (c = 0); } else 1 === c && (t = i["return"]) && t.call(i), c < 2 && (u = TypeError("The iterator does not provide a '" + o + "' method"), c = 1); i = e; } else if ((t = (y = G.n < 0) ? u : r.call(n, G)) !== a) break; } catch (t) { i = e, c = 1, u = t; } finally { f = 1; } } return { value: t, done: y }; }; }(r, o, i), !0), u; } var a = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} t = Object.getPrototypeOf; var c = [][n] ? t(t([][n]())) : (_regeneratorDefine2(t = {}, n, function () { return this; }), t), u = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(c); function f(e) { return Object.setPrototypeOf ? Object.setPrototypeOf(e, GeneratorFunctionPrototype) : (e.__proto__ = GeneratorFunctionPrototype, _regeneratorDefine2(e, o, "GeneratorFunction")), e.prototype = Object.create(u), e; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, _regeneratorDefine2(u, "constructor", GeneratorFunctionPrototype), _regeneratorDefine2(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = "GeneratorFunction", _regeneratorDefine2(GeneratorFunctionPrototype, o, "GeneratorFunction"), _regeneratorDefine2(u), _regeneratorDefine2(u, o, "Generator"), _regeneratorDefine2(u, n, function () { return this; }), _regeneratorDefine2(u, "toString", function () { return "[object Generator]"; }), (_regenerator = function _regenerator() { return { w: i, m: f }; })(); }
+function _regeneratorDefine2(e, r, n, t) { var i = Object.defineProperty; try { i({}, "", {}); } catch (e) { i = 0; } _regeneratorDefine2 = function _regeneratorDefine(e, r, n, t) { if (r) i ? i(e, r, { value: n, enumerable: !t, configurable: !t, writable: !t }) : e[r] = n;else { var o = function o(r, n) { _regeneratorDefine2(e, r, function (e) { return this._invoke(r, n, e); }); }; o("next", 0), o("throw", 1), o("return", 2); } }, _regeneratorDefine2(e, r, n, t); }
+function asyncGeneratorStep(n, t, e, r, o, a, c) { try { var i = n[a](c), u = i.value; } catch (n) { return void e(n); } i.done ? t(u) : Promise.resolve(u).then(r, o); }
+function _asyncToGenerator(n) { return function () { var t = this, e = arguments; return new Promise(function (r, o) { var a = n.apply(t, e); function _next(n) { asyncGeneratorStep(a, r, o, _next, _throw, "next", n); } function _throw(n) { asyncGeneratorStep(a, r, o, _next, _throw, "throw", n); } _next(void 0); }); }; }
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 
 
 // Main App component for the database GUI
 
 var App = function App() {
-  // This version is simplified to just render a basic message
-  // to confirm if React can mount and display anything.
+  // State for database connection form fields
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)({
+      db_connection: 'pgsql',
+      // Default to pgsql as per your cloud setup
+      db_host: '',
+      db_port: '',
+      db_database: '',
+      db_username: '',
+      db_password: ''
+    }),
+    _useState2 = _slicedToArray(_useState, 2),
+    dbConfig = _useState2[0],
+    setDbConfig = _useState2[1];
+  // State to track if a custom connection has been attempted/set
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    isCustomConnected = _useState4[0],
+    setIsCustomConnected = _useState4[1];
+  // State for the currently active database connection details (useful for display or re-use)
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState6 = _slicedToArray(_useState5, 2),
+    activeDbDetails = _useState6[0],
+    setActiveDbDetails = _useState6[1]; // null means default app DB
+
+  // State for the fetched list of available database tables
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState8 = _slicedToArray(_useState7, 2),
+    tableList = _useState8[0],
+    setTableList = _useState8[1];
+  // State to hold data for the currently selected table
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState0 = _slicedToArray(_useState9, 2),
+    selectedTableData = _useState0[0],
+    setSelectedTableData = _useState0[1];
+  // State for the currently selected table name
+  var _useState1 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+    _useState10 = _slicedToArray(_useState1, 2),
+    selectedTable = _useState10[0],
+    setSelectedTable = _useState10[1];
+
+  // State to manage loading status for tables list
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState12 = _slicedToArray(_useState11, 2),
+    isLoadingTables = _useState12[0],
+    setIsLoadingTables = _useState12[1]; // Initially false, as user needs to connect
+  // State to manage loading status for selected table data
+  var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState14 = _slicedToArray(_useState13, 2),
+    isLoadingTableData = _useState14[0],
+    setIsLoadingTableData = _useState14[1];
+  // State to manage any errors during data fetching or connection attempts
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState16 = _slicedToArray(_useState15, 2),
+    error = _useState16[0],
+    setError = _useState16[1];
+
+  // Base URL for your Laravel API endpoints
+  var API_BASE_URL = '/api/cloudview';
+
+  // Handler for input field changes in the database configuration form
+  var handleConfigChange = function handleConfigChange(e) {
+    var _e$target = e.target,
+      name = _e$target.name,
+      value = _e$target.value;
+    setDbConfig(function (prevConfig) {
+      return _objectSpread(_objectSpread({}, prevConfig), {}, _defineProperty({}, name, value));
+    });
+  };
+
+  /**
+   * Constructs the common fetch options (headers and body) for API requests.
+   * Includes dynamic database connection details if available.
+   * @param {string} method - HTTP method (e.g., 'GET', 'POST').
+   * @param {object} dataToSend - Data to be sent in the request body (for POST) or query string (for GET).
+   * @returns {object} Fetch options.
+   */
+  var getFetchOptions = function getFetchOptions() {
+    var method = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'GET';
+    var dataToSend = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+    var options = {
+      method: method,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]') ? document.querySelector('meta[name="csrf-token"]').content : '' // Include CSRF token if your API routes use web middleware or csrf protection
+      }
+    };
+    if (dataToSend) {
+      if (method === 'GET') {
+        // For GET, data needs to be part of the URL's query string
+        // This function returns only options, so the caller appends the query string
+      } else {
+        // For POST/PUT/DELETE, data goes in the request body
+        options.body = JSON.stringify(dataToSend);
+      }
+    }
+    return options;
+  };
+
+  /**
+   * Fetches the list of all database tables from the Laravel backend.
+   * Can be triggered by the "Connect" button or on initial load.
+   * @param {object} configToUse - The database config to use for this fetch (null for default app DB).
+   */
+  var fetchTableList = /*#__PURE__*/function () {
+    var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
+      var configToUse,
+        dataToSend,
+        url,
+        options,
+        response,
+        errorData,
+        data,
+        userMessage,
+        _args = arguments,
+        _t;
+      return _regenerator().w(function (_context) {
+        while (1) switch (_context.n) {
+          case 0:
+            configToUse = _args.length > 0 && _args[0] !== undefined ? _args[0] : null;
+            setIsLoadingTables(true);
+            setError(null);
+            setTableList([]); // Clear previous table list
+            setSelectedTableData([]); // Clear previous table data
+            setSelectedTable(''); // Clear selected table
+            _context.p = 1;
+            // Determine the actual data to send, prioritizing configToUse
+            dataToSend = configToUse || (isCustomConnected && activeDbDetails ? activeDbDetails : null);
+            url = "".concat(API_BASE_URL, "/tables");
+            options = {};
+            if (dataToSend) {
+              // For initial connection or subsequent fetches with specific credentials, send as POST body
+              options = getFetchOptions('POST', dataToSend);
+            } else {
+              // For initial load using app's default DB (no sensitive data to send), use GET
+              options = getFetchOptions('GET');
+            }
+
+            // Perform the fetch request
+            _context.n = 2;
+            return fetch(url, options);
+          case 2:
+            response = _context.v;
+            if (response.ok) {
+              _context.n = 4;
+              break;
+            }
+            _context.n = 3;
+            return response.json()["catch"](function () {
+              return {
+                message: response.statusText
+              };
+            });
+          case 3:
+            errorData = _context.v;
+            throw new Error("HTTP error! Status: ".concat(response.status, " - ").concat(errorData.message || 'Unknown error'));
+          case 4:
+            _context.n = 5;
+            return response.json();
+          case 5:
+            data = _context.v;
+            setTableList(data);
+            if (data.length > 0) {
+              setSelectedTable(data[0]);
+              // Store the successfully used configuration
+              setActiveDbDetails(configToUse || (isCustomConnected ? activeDbDetails : null)); // If configToUse was provided, use it. Else, keep existing activeDbDetails if custom connected.
+              setIsCustomConnected(!!configToUse); // Mark as custom connected if config was explicitly provided
+            } else {
+              setError("No tables found for the provided connection. Check connection details or database content.");
+              setActiveDbDetails(null); // No tables, effectively not connected to a usable DB
+              setIsCustomConnected(false);
+            }
+            _context.n = 7;
+            break;
+          case 6:
+            _context.p = 6;
+            _t = _context.v;
+            console.error("Failed to fetch table list:", _t);
+            userMessage = "Failed to connect or load table list. Please check your database connection details (host, port, username, password, database name, and driver). Ensure the database server is accessible from your Laravel application's environment.";
+            if (_t.message.includes('500') || _t.message.includes('Internal Server Error')) {
+              userMessage += " A server-side error occurred. Check your Laravel logs (storage/logs/laravel.log) for details.";
+            } else if (_t.message.includes('404')) {
+              userMessage += " The API endpoint was not found. Ensure your Laravel routes are correctly defined.";
+            } else if (_t.message.includes('405')) {
+              userMessage = "HTTP 405 (Method Not Allowed). This means the server received a POST request but the route is only configured for GET. Ensure your Laravel routes/api.php accepts POST for /api/cloudview/tables.";
+            }
+            setError(userMessage);
+            setActiveDbDetails(null); // Connection failed
+            setIsCustomConnected(false);
+          case 7:
+            _context.p = 7;
+            setIsLoadingTables(false);
+            return _context.f(7);
+          case 8:
+            return _context.a(2);
+        }
+      }, _callee, null, [[1, 6, 7, 8]]);
+    }));
+    return function fetchTableList() {
+      return _ref.apply(this, arguments);
+    };
+  }();
+
+  /**
+   * Fetches data for a specific table from the Laravel backend.
+   * @param {string} tableName - The name of the table to fetch data for.
+   */
+  var fetchTableData = /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee2(tableName) {
+      var options, response, errorData, data, _t2;
+      return _regenerator().w(function (_context2) {
+        while (1) switch (_context2.n) {
+          case 0:
+            if (tableName) {
+              _context2.n = 1;
+              break;
+            }
+            setSelectedTableData([]);
+            return _context2.a(2);
+          case 1:
+            setIsLoadingTableData(true);
+            setError(null);
+            _context2.p = 2;
+            // Always send the activeDbDetails as POST body to ensure context
+            options = getFetchOptions('POST', activeDbDetails);
+            _context2.n = 3;
+            return fetch("".concat(API_BASE_URL, "/table/").concat(tableName), options);
+          case 3:
+            response = _context2.v;
+            if (response.ok) {
+              _context2.n = 5;
+              break;
+            }
+            _context2.n = 4;
+            return response.json()["catch"](function () {
+              return {
+                message: response.statusText
+              };
+            });
+          case 4:
+            errorData = _context2.v;
+            throw new Error("HTTP error! Status: ".concat(response.status, " - ").concat(errorData.message || 'Unknown error'));
+          case 5:
+            _context2.n = 6;
+            return response.json();
+          case 6:
+            data = _context2.v;
+            setSelectedTableData(data);
+            _context2.n = 8;
+            break;
+          case 7:
+            _context2.p = 7;
+            _t2 = _context2.v;
+            console.error("Failed to fetch data for table ".concat(tableName, ":"), _t2);
+            setError("Failed to load data for table \"".concat(tableName, "\". Check network tab or server logs."));
+          case 8:
+            _context2.p = 8;
+            setIsLoadingTableData(false);
+            return _context2.f(8);
+          case 9:
+            return _context2.a(2);
+        }
+      }, _callee2, null, [[2, 7, 8, 9]]);
+    }));
+    return function fetchTableData(_x) {
+      return _ref2.apply(this, arguments);
+    };
+  }();
+
+  /**
+   * Handles CSV export by initiating a download from the Laravel backend.
+   */
+  var handleExportCsv = function handleExportCsv() {
+    if (selectedTable && activeDbDetails) {
+      // For CSV export (which is a download), it's generally a GET request.
+      // Send credentials as URL query parameters (which is common for GET downloads).
+      var params = new URLSearchParams(activeDbDetails).toString();
+      window.location.href = "".concat(API_BASE_URL, "/table/").concat(selectedTable, "/export/csv?").concat(params);
+    } else {
+      setError("Please select a table to export and ensure a database is connected.");
+    }
+  };
+
+  // Effect to fetch initial table list using the default application connection on mount
+  // This will be called on first load to show the internal app DB, if any.
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    // Fetch using null to indicate no custom config, so it uses default
+    fetchTableList(null);
+  }, []);
+
+  // Effect to fetch data whenever the selectedTable changes
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (selectedTable) {
+      fetchTableData(selectedTable);
+    }
+  }, [selectedTable, activeDbDetails]); // Re-fetch if activeDbDetails changes too
+
+  // Function to handle the "Connect" button click
+  var handleConnect = function handleConnect() {
+    // Validate required fields before attempting connection
+    if (!dbConfig.db_connection || !dbConfig.db_host || !dbConfig.db_port || !dbConfig.db_database || !dbConfig.db_username || !dbConfig.db_password) {
+      setError("All database connection fields are required (Driver, Host, Port, Database, Username, Password).");
+      return;
+    }
+    // Attempt to fetch table list with the new custom configuration
+    fetchTableList(dbConfig);
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
-    className: "min-h-screen bg-gray-100 p-4 font-sans antialiased flex items-center justify-center",
+    className: "min-h-screen bg-gray-100 p-4 font-sans antialiased",
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-      className: "bg-white shadow-lg rounded-xl p-8 text-center",
+      className: "max-w-6xl mx-auto bg-white shadow-lg rounded-xl p-6 sm:p-8",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h1", {
-        className: "text-4xl font-extrabold text-gray-900 mb-4",
-        children: "Hello CloudView!"
+        className: "text-3xl sm:text-4xl font-extrabold text-gray-900 mb-6 text-center text-blue-800",
+        children: "Laravel CloudView Database GUI"
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
-        className: "text-lg text-gray-700",
-        children: "If you see this, React is working!"
+        className: "text-center text-gray-600 mb-8",
+        children: "View your Laravel application's database or connect to an external one."
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "bg-blue-50 p-6 rounded-lg shadow-inner mb-8",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("h2", {
+          className: "text-2xl font-bold text-blue-700 mb-4 text-center",
+          children: "Connect to Database"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "grid grid-cols-1 md:grid-cols-2 gap-4 mb-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+              htmlFor: "db_connection",
+              className: "block text-sm font-medium text-gray-700",
+              children: "Driver"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("select", {
+              id: "db_connection",
+              name: "db_connection",
+              value: dbConfig.db_connection,
+              onChange: handleConfigChange,
+              className: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                value: "mysql",
+                children: "MySQL"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                value: "pgsql",
+                children: "PostgreSQL"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                value: "sqlite",
+                children: "SQLite (File Path)"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                value: "sqlsrv",
+                children: "SQL Server"
+              })]
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+              htmlFor: "db_host",
+              className: "block text-sm font-medium text-gray-700",
+              children: "Host"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+              type: "text",
+              id: "db_host",
+              name: "db_host",
+              value: dbConfig.db_host,
+              onChange: handleConfigChange,
+              placeholder: "e.g., your-db-host.cloud.com",
+              className: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+              htmlFor: "db_port",
+              className: "block text-sm font-medium text-gray-700",
+              children: "Port"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+              type: "text",
+              id: "db_port",
+              name: "db_port",
+              value: dbConfig.db_port,
+              onChange: handleConfigChange,
+              placeholder: "e.g., 5432 (PGSQL), 3306 (MySQL)",
+              className: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+              htmlFor: "db_database",
+              className: "block text-sm font-medium text-gray-700",
+              children: "Database Name"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+              type: "text",
+              id: "db_database",
+              name: "db_database",
+              value: dbConfig.db_database,
+              onChange: handleConfigChange,
+              placeholder: "e.g., main",
+              className: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+              htmlFor: "db_username",
+              className: "block text-sm font-medium text-gray-700",
+              children: "Username"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+              type: "text",
+              id: "db_username",
+              name: "db_username",
+              value: dbConfig.db_username,
+              onChange: handleConfigChange,
+              placeholder: "e.g., laravel",
+              className: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            })]
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+              htmlFor: "db_password",
+              className: "block text-sm font-medium text-gray-700",
+              children: "Password"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("input", {
+              type: "password" // Use type="password" for security
+              ,
+              id: "db_password",
+              name: "db_password",
+              value: dbConfig.db_password,
+              onChange: handleConfigChange,
+              className: "mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            })]
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "flex justify-center mt-6",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+            onClick: handleConnect,
+            disabled: isLoadingTables || isLoadingTableData,
+            className: "px-8 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300 ease-in-out transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed",
+            children: "Connect to Database"
+          })
+        })]
+      }), activeDbDetails ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("p", {
+        className: "text-center text-sm text-gray-500 mb-4",
+        children: ["Currently connected to: ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("span", {
+          className: "font-semibold text-gray-800",
+          children: [activeDbDetails.db_username, "@", activeDbDetails.db_host, ":", activeDbDetails.db_port, "/", activeDbDetails.db_database, " (", activeDbDetails.db_connection, ")"]
+        })]
+      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+        className: "text-center text-sm text-gray-500 mb-4",
+        children: "Not connected to a custom database. Viewing application's default DB."
+      }), (isLoadingTables || isLoadingTableData) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "flex flex-col items-center justify-center py-12",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
+          className: "mt-4 text-lg text-blue-600",
+          children: isLoadingTables ? "Connecting and loading tables..." : "Loading table data..."
+        })]
+      }), error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-md relative mb-6 text-center",
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("strong", {
+          className: "font-bold",
+          children: "Error!"
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
+          className: "block sm:inline ml-2",
+          children: error
+        })]
+      }), !isLoadingTables && !error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        className: "pt-4",
+        children: [" ", tableList.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+          className: "mb-8 flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4",
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("label", {
+            htmlFor: "table-select",
+            className: "text-lg font-medium text-gray-700",
+            children: "Select Table:"
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("select", {
+            id: "table-select",
+            value: selectedTable,
+            onChange: function onChange(e) {
+              return setSelectedTable(e.target.value);
+            },
+            className: "mt-1 block w-full sm:w-auto px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-base appearance-none bg-white pr-8 transition-colors duration-200 hover:border-blue-400",
+            disabled: isLoadingTables || tableList.length === 0,
+            children: tableList.map(function (tableName) {
+              return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("option", {
+                value: tableName,
+                children: tableName
+              }, tableName);
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("button", {
+            onClick: handleExportCsv,
+            className: "px-6 py-3 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-300 ease-in-out transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed",
+            disabled: !selectedTable || isLoadingTableData,
+            children: "Export to CSV"
+          })]
+        }), selectedTable && selectedTableData.length > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "overflow-x-auto rounded-lg shadow-md border border-gray-200",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("table", {
+            className: "min-w-full divide-y divide-gray-200",
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("thead", {
+              className: "bg-gray-50",
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tr", {
+                children: Object.keys(selectedTableData[0] || {}).map(function (key) {
+                  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("th", {
+                    scope: "col",
+                    className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider",
+                    children: [key.replace(/_/g, ' '), " "]
+                  }, key);
+                })
+              })
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tbody", {
+              className: "bg-white divide-y divide-gray-200",
+              children: selectedTableData.map(function (row, rowIndex) {
+                return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("tr", {
+                  className: "hover:bg-gray-50 transition-colors duration-200",
+                  children: Object.values(row).map(function (value, colIndex) {
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("td", {
+                      className: "px-6 py-4 whitespace-nowrap text-sm text-gray-700",
+                      children: [String(value), " "]
+                    }, colIndex);
+                  })
+                }, rowIndex);
+              })
+            })]
+          })
+        }) :
+        // Messages for no data or no table selected
+        tableList.length > 0 && selectedTable === '' ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "text-center py-12 text-gray-500 text-lg",
+          children: "Please select a table from the dropdown above to view its data."
+        }) : !isLoadingTables && !isLoadingTableData && tableList.length === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+          className: "text-center py-12 text-gray-500 text-lg",
+          children: "No tables available. Connect to a database using the form above or check your application's default database."
+        })]
       })]
     })
   });
@@ -34996,7 +35521,7 @@ if (rootElement) {
 /******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
 /******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
 /******/ 		var installedChunks = {
-/******/ 			"/public/js/bootstrap": 0,
+/******/ 			"/public/js/app": 0,
 /******/ 			"public/css/app": 0
 /******/ 		};
 /******/ 		

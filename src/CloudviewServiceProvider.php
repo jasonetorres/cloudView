@@ -5,8 +5,8 @@ namespace Jasontorres\CloudView;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Jasontorres\CloudView\Console\Commands\ShowCloudviewLogo;
-use function config_path; // Explicitly import global helper function for static analysis
-use function public_path; // Explicitly import global helper function for static analysis
+use function config_path;
+use function public_path;
 
 class CloudviewServiceProvider extends ServiceProvider
 {
@@ -34,17 +34,20 @@ class CloudviewServiceProvider extends ServiceProvider
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'cloudview');
 
         // Load package web routes
-        // Ensure the path is correct relative to the service provider
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
 
         // Load package API routes
-        // Ensure the path is correct relative to the service provider
         $this->loadRoutesFrom(__DIR__.'/../routes/api.php');
 
-        // Publish public assets (compiled JS/CSS)
+        // --- FIXED ASSET PUBLISHING ---
+        // Publish specific subdirectories (js and css) from the package's public folder
+        // to prevent a nested 'public' folder in the main application's vendor assets.
         $this->publishes([
-            __DIR__.'/../public' => public_path('vendor/cloudview'),
+            __DIR__.'/../public/js' => public_path('vendor/cloudview/js'),
+            __DIR__.'/../public/css' => public_path('vendor/cloudview/css'),
         ], 'cloudview-assets');
+        // --- END FIXED ASSET PUBLISHING ---
+
 
         // Optionally publish configuration
         $this->publishes([
