@@ -28,13 +28,16 @@ const [selectedTableData, setSelectedTableData] = useState([]);
 const [selectedTable, setSelectedTable] = useState('');
 
 // State to manage loading status for tables list
-const [isLoadingTables, setIsLoadingTables] = useState(false); // Initially false, as user needs to connect
+const [isLoadingTables, setIsLoadingTables] = useState(false);
 
 // State to manage loading status for selected table data
 const [isLoadingTableData, setIsLoadingTableData] = useState(false);
 
 // State to manage any errors during data fetching or connection attempts
 const [error, setError] = useState(null);
+
+// State to track if user has attempted any connection
+const [hasAttemptedConnection, setHasAttemptedConnection] = useState(false);
 
 // Base URL for your Laravel API endpoints
 const API_BASE_URL = '/api/cloudview';
@@ -80,10 +83,13 @@ return options;
 * Fetches the list of all database tables from the Laravel backend.
 * Can be triggered by the "Connect" button or on initial load.
 * @param {object} configToUse - The database config to use for this fetch (null for default app DB).
+* @param {boolean} showErrors - Whether to show errors to the user (false for silent operations).
 */
-const fetchTableList = async (configToUse = null) => {
+const fetchTableList = async (configToUse = null, showErrors = true) => {
 setIsLoadingTables(true);
+if (showErrors) {
 setError(null);
+}
 setTableList([]); // Clear previous table list
 setSelectedTableData([]); // Clear previous table data
 setSelectedTable(''); // Clear selected table
@@ -118,13 +124,14 @@ setSelectedTable(data[0]);
 // Store the successfully used configuration
 setActiveDbDetails(configToUse || (isCustomConnected ? activeDbDetails : null)); // If configToUse was provided, use it. Else, keep existing activeDbDetails if custom connected.
 setIsCustomConnected(!!configToUse); // Mark as custom connected if config was explicitly provided
-} else {
+} else if (showErrors) {
 setError("No tables found for the provided connection. Check connection details or database content.");
 setActiveDbDetails(null); // No tables, effectively not connected to a usable DB
 setIsCustomConnected(false);
 }
 } catch (err) {
 console.error("Failed to fetch table list:", err);
+if (showErrors) {
 let userMessage = "Failed to connect or load table list. Please check your database connection details (host, port, username, password, database name, and driver). Ensure the database server is accessible from your Laravel application's environment.";
 if (err.message.includes('500') || err.message.includes('Internal Server Error')) {
 userMessage += " A server-side error occurred. Check your Laravel logs (storage/logs/laravel.log) for details.";
@@ -136,6 +143,7 @@ userMessage = "HTTP 405 (Method Not Allowed). This means the server received a P
 setError(userMessage);
 setActiveDbDetails(null); // Connection failed
 setIsCustomConnected(false);
+}
 } finally {
 setIsLoadingTables(false);
 }
@@ -166,7 +174,9 @@ const data = await response.json();
 setSelectedTableData(data);
 } catch (err) {
 console.error(`Failed to fetch data for table ${tableName}:`, err);
+if (hasAttemptedConnection) {
 setError(`Failed to load data for table "${tableName}". Check network tab or server logs.`);
+}
 } finally {
 setIsLoadingTableData(false);
 }
@@ -186,11 +196,11 @@ setError("Please select a table to export and ensure a database is connected.");
 }
 };
 
-// Effect to fetch initial table list using the default application connection on mount
-// This will be called on first load to show the internal app DB, if any.
+// Effect to silently try fetching initial table list using the default application connection on mount
+// This will be called on first load to show the internal app DB if available, without showing errors
 useEffect(() => {
-// Fetch using null to indicate no custom config, so it uses default
-fetchTableList(null);
+// Fetch using null to indicate no custom config, so it uses default, but don't show errors
+fetchTableList(null, false);
 }, []);
 
 // Effect to fetch data whenever the selectedTable changes
@@ -202,13 +212,14 @@ fetchTableData(selectedTable);
 
 // Function to handle the "Connect" button click
 const handleConnect = () => {
+setHasAttemptedConnection(true);
 // Validate required fields before attempting connection
 if (!dbConfig.db_connection || !dbConfig.db_host || !dbConfig.db_port || !dbConfig.db_database || !dbConfig.db_username || !dbConfig.db_password) {
 setError("All database connection fields are required (Driver, Host, Port, Database, Username, Password).");
 return;
 }
 // Attempt to fetch table list with the new custom configuration
-fetchTableList(dbConfig);
+fetchTableList(dbConfig, true);
 };
 
 return (
@@ -350,9 +361,9 @@ Connect to Database
 </div>
 </div>
 
-{/* Connection Status */}
+{/* Connection Status - Only show when actively connected */}
+{activeDbDetails && hasAttemptedConnection && (
 <div className="bg-white/70 backdrop-blur-sm shadow-lg rounded-xl p-6 mb-8 border border-gray-200/50">
-{activeDbDetails ? (
 <div className="flex items-center justify-center text-emerald-700 bg-emerald-50/80 rounded-lg p-4">
 <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -362,15 +373,8 @@ Connected to: <span className="font-bold">{activeDbDetails.db_username}@{activeD
 <span className="ml-2 px-2 py-1 bg-emerald-100 text-xs rounded-full">{activeDbDetails.db_connection.toUpperCase()}</span>
 </span>
 </div>
-) : (
-<div className="flex items-center justify-center text-gray-600 bg-gray-50/80 rounded-lg p-4">
-<svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-</svg>
-<span className="font-medium">Using application's default database connection</span>
 </div>
 )}
-</div>
 
 {/* Loading Indicator */}
 {(isLoadingTables || isLoadingTableData) && (
@@ -387,8 +391,8 @@ Connected to: <span className="font-bold">{activeDbDetails.db_username}@{activeD
 </div>
 )}
 
-{/* Error Message Display */}
-{error && (
+{/* Error Message Display - Only show when user has attempted connection */}
+{error && hasAttemptedConnection && (
 <div className="bg-red-50/90 backdrop-blur-sm border-l-4 border-red-500 shadow-lg rounded-xl p-6 mb-8">
 <div className="flex items-start">
 <svg className="w-6 h-6 text-red-500 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -403,7 +407,7 @@ Connected to: <span className="font-bold">{activeDbDetails.db_username}@{activeD
 )}
 
 {/* Main Data View */}
-{!isLoadingTables && !error && (
+{!isLoadingTables && (
 <div className="space-y-8">
 {tableList.length > 0 && (
 <div className="bg-white/90 backdrop-blur-sm shadow-xl rounded-2xl p-8 border border-gray-200/50">
@@ -496,14 +500,14 @@ className="px-6 py-4 text-left text-xs font-bold text-gray-600 uppercase trackin
 </div>
 )}
 
-{!isLoadingTables && !isLoadingTableData && tableList.length === 0 && (
+{!isLoadingTables && !isLoadingTableData && tableList.length === 0 && hasAttemptedConnection && (
 <div className="bg-white/80 backdrop-blur-sm shadow-xl rounded-2xl p-16 text-center border border-gray-200/50">
 <svg className="w-20 h-20 mx-auto mb-6 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 7v10c0 2.21 1.79 4 4 4h8c0-2.21-1.79-4-4-4H4V7z" />
 </svg>
 <h3 className="text-xl font-semibold text-gray-700 mb-2">No Tables Found</h3>
 <p className="text-gray-500">
-Connect to a database using the form above or check your application's default database configuration.
+No tables were found in the connected database. Please check your connection details.
 </p>
 </div>
 )}
