@@ -22,6 +22,9 @@
         "illuminate/database": "^11.0 || ^12.0", 
         "doctrine/dbal": ">=3.5.5,!=3.9.5,<3.10.0 || >=3.10.0,<4.0.0"
     },
+    "conflict": {
+        "carbonphp/carbon-doctrine-types": ">=3.0,<4.0"
+    },
     "require-dev": {
         "phpunit/phpunit": "^10.0",
         "orchestra/testbench": "^9.0 || ^10.0",  
