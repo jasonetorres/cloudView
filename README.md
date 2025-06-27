@@ -81,19 +81,6 @@ http://127.0.0.1:8000/cloudview
 Connecting to External Databases
 On the CloudView GUI page, you will see a "Connect to Database" form. Enter the credentials for your desired database (e.g., your Laravel Cloud PostgreSQL instance) and click "Connect".
 
-Example PostgreSQL credentials for Laravel Cloud:
-
-Driver: pgsql
-
-Host: ep-cold-boat-a59adbys.aws-us-east-2.pg.laravel.cloud
-
-Port: 5432
-
-Database Name: main
-
-Username: laravel
-
-Password: npg_zpAtl9r3DKVc
 
 Viewing and Exporting Data
 After successfully connecting, a dropdown will populate with available tables. Select a table to view its data. You can then click "Export to CSV" to download the data.
