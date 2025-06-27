@@ -3,7 +3,7 @@
         'name' => 'jasontorres/cloud-view',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '852eb7d93dab717f608024584ab682ad186270b8',
+        'reference' => '7567eacceba207a041435715c4de9b8d72d88b48',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -20,13 +20,10 @@
             'dev_requirement' => false,
         ),
         'carbonphp/carbon-doctrine-types' => array(
-            'pretty_version' => '2.1.0',
-            'version' => '2.1.0.0',
-            'reference' => '99f76ffa36cce3b70a4a6abce41dba15ca2e84cb',
-            'type' => 'library',
-            'install_path' => __DIR__ . '/../carbonphp/carbon-doctrine-types',
-            'aliases' => array(),
             'dev_requirement' => false,
+            'replaced' => array(
+                0 => '*',
+            ),
         ),
         'composer/semver' => array(
             'pretty_version' => '3.4.3',
@@ -418,7 +415,7 @@
         'jasontorres/cloud-view' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '852eb7d93dab717f608024584ab682ad186270b8',
+            'reference' => '7567eacceba207a041435715c4de9b8d72d88b48',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

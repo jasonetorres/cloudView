@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Crypt;
-use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class CloudviewController extends Controller
 {
@@ -21,71 +22,79 @@ class CloudviewController extends Controller
 
     private function configureDynamicDbConnection(Request $request)
     {
-        $dbConnection = $request->input('db_connection');
-        $dbHost = $request->input('db_host');
-        $dbPort = $request->input('db_port');
-        $dbDatabase = $request->input('db_database');
-        $dbUsername = $request->input('db_username');
-        $dbPassword = $request->input('db_password');
-
-        if ($dbConnection && $dbHost && $dbPort && $dbDatabase && $dbUsername && $dbPassword) {
-            // Store to session securely
-            $this->storeConnectionInSession($request);
-
-        } else {
-            // Attempt to load from session
-            $dbConnection = session('cloudview.db_connection');
-            $dbHost = session('cloudview.db_host');
-            $dbPort = session('cloudview.db_port');
-            $dbDatabase = session('cloudview.db_database');
-            $dbUsername = session('cloudview.db_username');
-            $dbPassword = session('cloudview.db_password') ? Crypt::decrypt(session('cloudview.db_password')) : null;
-        }
-
-        if ($dbConnection && $dbHost && $dbPort && $dbDatabase && $dbUsername && $dbPassword) {
-            $config = [
-                'driver' => $dbConnection,
-                'host' => $dbHost,
-                'port' => $dbPort,
-                'database' => $dbDatabase,
-                'username' => $dbUsername,
-                'password' => $dbPassword,
-                'charset' => 'utf8mb4',
-                'collation' => 'utf8mb4_unicode_ci',
-                'prefix' => '',
-                'strict' => true,
-                'engine' => null,
-            ];
-
-            if ($dbConnection === 'pgsql') {
-                $config['sslmode'] = 'prefer';
+        // 1. Try session-stored encrypted credentials
+        if (session()->has('cloudview_encrypted')) {
+            try {
+                $decrypted = Crypt::decrypt(session('cloudview_encrypted'));
+                if (is_array($decrypted)) {
+                    return $this->setDbConfig($decrypted);
+                }
+            } catch (\Exception $e) {
+                \Log::warning('Invalid session config: ' . $e->getMessage());
             }
-
-            Config::set('database.connections.dynamic_db', $config);
-            DB::purge('dynamic_db');
-            DB::reconnect('dynamic_db');
-            DB::setDefaultConnection('dynamic_db');
-
-            \Log::info("Connected using dynamic config: $dbConnection@$dbHost:$dbPort/$dbDatabase");
-        } else {
-            DB::setDefaultConnection(Config::get('database.default'));
-            DB::purge(Config::get('database.default'));
-            DB::reconnect(Config::get('database.default'));
-
-            \Log::info("Using default DB connection (fallback).");
         }
+
+        // 2. Try .env values if enabled
+        if (config('cloudview.use_env', true)) {
+            $envConfig = [
+                'driver' => env('CLOUDVIEW_DB_CONNECTION'),
+                'host' => env('CLOUDVIEW_DB_HOST'),
+                'port' => env('CLOUDVIEW_DB_PORT'),
+                'database' => env('CLOUDVIEW_DB_DATABASE'),
+                'username' => env('CLOUDVIEW_DB_USERNAME'),
+                'password' => env('CLOUDVIEW_DB_PASSWORD'),
+            ];
+            if (!in_array(null, $envConfig, true)) {
+                return $this->setDbConfig($envConfig);
+            }
+        }
+
+        // 3. Try local config file
+        $file = base_path('cloudview.local.json');
+        if (file_exists($file)) {
+            $json = json_decode(file_get_contents($file), true);
+            if (is_array($json) && !in_array(null, array_values($json), true)) {
+                return $this->setDbConfig($json);
+            }
+        }
+
+        // 4. Manual input via request (used when user enters manually)
+        $manual = $request->only(['db_connection', 'db_host', 'db_port', 'db_database', 'db_username', 'db_password']);
+        if (!in_array(null, $manual, true)) {
+            session(['cloudview_encrypted' => Crypt::encrypt($manual)]); // Save encrypted for future
+            return $this->setDbConfig($manual);
+        }
+
+        // fallback to default connection
+        DB::setDefaultConnection(Config::get('database.default'));
+        DB::purge(Config::get('database.default'));
+        DB::reconnect(Config::get('database.default'));
     }
 
-    private function storeConnectionInSession(Request $request)
+    private function setDbConfig(array $config)
     {
-        session([
-            'cloudview.db_connection' => $request->input('db_connection'),
-            'cloudview.db_host' => $request->input('db_host'),
-            'cloudview.db_port' => $request->input('db_port'),
-            'cloudview.db_database' => $request->input('db_database'),
-            'cloudview.db_username' => $request->input('db_username'),
-            'cloudview.db_password' => Crypt::encrypt($request->input('db_password')),
-        ]);
+        $connection = [
+            'driver' => $config['driver'] ?? 'pgsql',
+            'host' => $config['host'],
+            'port' => $config['port'],
+            'database' => $config['database'],
+            'username' => $config['username'],
+            'password' => $config['password'],
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'strict' => true,
+            'engine' => null,
+        ];
+
+        if ($connection['driver'] === 'pgsql') {
+            $connection['sslmode'] = 'prefer';
+        }
+
+        Config::set('database.connections.dynamic_db', $connection);
+        DB::purge('dynamic_db');
+        DB::reconnect('dynamic_db');
+        DB::setDefaultConnection('dynamic_db');
     }
 
     public function getTables(Request $request)
@@ -121,18 +130,17 @@ class CloudviewController extends Controller
                     break;
                 default:
                     $tables = $db->getDoctrineSchemaManager()->listTableNames();
-                    break;
             }
 
             $filtered = array_filter($tables, fn($t) => !Str::startsWith($t, [
-                'migrations', 'failed_jobs', 'personal_access_tokens', 'sessions',
-                'telescope_', 'horizon_', 'jobs', 'job_batches', 'cache'
+                'migrations', 'failed_jobs', 'password_reset_tokens',
+                'personal_access_tokens', 'sessions', 'telescope_', 'horizon_', 'cache', 'jobs', 'job_batches'
             ]));
 
             return response()->json(array_values($filtered));
         } catch (\Exception $e) {
-            \Log::error("Table fetch error: " . $e->getMessage());
-            return response()->json(['error' => 'Could not retrieve table list.'], 500);
+            \Log::error("Error fetching tables: " . $e->getMessage());
+            return response()->json(['error' => 'Could not retrieve tables'], 500);
         }
     }
 
@@ -148,8 +156,8 @@ class CloudviewController extends Controller
             $data = DB::table($tableName)->get();
             return response()->json($data);
         } catch (\Exception $e) {
-            \Log::error("Data fetch error for $tableName: " . $e->getMessage());
-            return response()->json(['error' => 'Error fetching table data.'], 500);
+            \Log::error("Error fetching data for $tableName: " . $e->getMessage());
+            return response()->json(['error' => 'Could not retrieve table data.'], 500);
         }
     }
 
@@ -164,29 +172,30 @@ class CloudviewController extends Controller
 
             $headers = [
                 'Content-Type' => 'text/csv',
-                'Content-Disposition' => "attachment; filename={$tableName}.csv",
+                'Content-Disposition' => "attachment; filename=\"$tableName.csv\"",
             ];
 
             $callback = function () use ($tableName) {
                 $file = fopen('php://output', 'w');
                 $data = DB::table($tableName)->cursor();
 
-                $firstRow = true;
+                $first = true;
                 foreach ($data as $row) {
                     $rowArray = (array) $row;
-                    if ($firstRow) {
+                    if ($first) {
                         fputcsv($file, array_keys($rowArray));
-                        $firstRow = false;
+                        $first = false;
                     }
                     fputcsv($file, $rowArray);
                 }
+
                 fclose($file);
             };
 
             return Response::stream($callback, 200, $headers);
         } catch (\Exception $e) {
-            \Log::error("CSV export error: " . $e->getMessage());
-            abort(500, 'Error exporting CSV.');
+            \Log::error("Error exporting CSV for $tableName: " . $e->getMessage());
+            abort(500, 'Error exporting CSV');
         }
     }
 }

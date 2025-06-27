@@ -187,7 +187,6 @@ class ComposerStaticInit74de64ff90311ba994af72bc4e761daf
         array (
             'Cron\\' => 5,
             'Composer\\Semver\\' => 16,
-            'Carbon\\Doctrine\\' => 16,
             'Carbon\\' => 7,
         ),
         'B' => 
@@ -566,10 +565,6 @@ class ComposerStaticInit74de64ff90311ba994af72bc4e761daf
         'Composer\\Semver\\' => 
         array (
             0 => __DIR__ . '/..' . '/composer/semver/src',
-        ),
-        'Carbon\\Doctrine\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/carbonphp/carbon-doctrine-types/src/Carbon/Doctrine',
         ),
         'Carbon\\' => 
         array (
