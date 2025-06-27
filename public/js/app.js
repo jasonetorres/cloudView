@@ -34882,7 +34882,7 @@ var App = function App() {
   var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState12 = _slicedToArray(_useState11, 2),
     isLoadingTables = _useState12[0],
-    setIsLoadingTables = _useState12[1]; // Initially false, as user needs to connect
+    setIsLoadingTables = _useState12[1];
 
   // State to manage loading status for selected table data
   var _useState13 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
@@ -34895,6 +34895,12 @@ var App = function App() {
     _useState16 = _slicedToArray(_useState15, 2),
     error = _useState16[0],
     setError = _useState16[1];
+
+  // State to track if user has attempted any connection
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState18 = _slicedToArray(_useState17, 2),
+    hasAttemptedConnection = _useState18[0],
+    setHasAttemptedConnection = _useState18[1];
 
   // Base URL for your Laravel API endpoints
   var API_BASE_URL = '/api/cloudview';
@@ -34942,10 +34948,12 @@ var App = function App() {
   * Fetches the list of all database tables from the Laravel backend.
   * Can be triggered by the "Connect" button or on initial load.
   * @param {object} configToUse - The database config to use for this fetch (null for default app DB).
+  * @param {boolean} showErrors - Whether to show errors to the user (false for silent operations).
   */
   var fetchTableList = /*#__PURE__*/function () {
     var _ref = _asyncToGenerator(/*#__PURE__*/_regenerator().m(function _callee() {
       var configToUse,
+        showErrors,
         dataToSend,
         url,
         options,
@@ -34959,8 +34967,11 @@ var App = function App() {
         while (1) switch (_context.n) {
           case 0:
             configToUse = _args.length > 0 && _args[0] !== undefined ? _args[0] : null;
+            showErrors = _args.length > 1 && _args[1] !== undefined ? _args[1] : true;
             setIsLoadingTables(true);
-            setError(null);
+            if (showErrors) {
+              setError(null);
+            }
             setTableList([]); // Clear previous table list
             setSelectedTableData([]); // Clear previous table data
             setSelectedTable(''); // Clear selected table
@@ -35006,7 +35017,7 @@ var App = function App() {
               // Store the successfully used configuration
               setActiveDbDetails(configToUse || (isCustomConnected ? activeDbDetails : null)); // If configToUse was provided, use it. Else, keep existing activeDbDetails if custom connected.
               setIsCustomConnected(!!configToUse); // Mark as custom connected if config was explicitly provided
-            } else {
+            } else if (showErrors) {
               setError("No tables found for the provided connection. Check connection details or database content.");
               setActiveDbDetails(null); // No tables, effectively not connected to a usable DB
               setIsCustomConnected(false);
@@ -35017,17 +35028,19 @@ var App = function App() {
             _context.p = 6;
             _t = _context.v;
             console.error("Failed to fetch table list:", _t);
-            userMessage = "Failed to connect or load table list. Please check your database connection details (host, port, username, password, database name, and driver). Ensure the database server is accessible from your Laravel application's environment.";
-            if (_t.message.includes('500') || _t.message.includes('Internal Server Error')) {
-              userMessage += " A server-side error occurred. Check your Laravel logs (storage/logs/laravel.log) for details.";
-            } else if (_t.message.includes('404')) {
-              userMessage += " The API endpoint was not found. Ensure your Laravel routes are correctly defined.";
-            } else if (_t.message.includes('405')) {
-              userMessage = "HTTP 405 (Method Not Allowed). This means the server received a POST request but the route is only configured for GET. Ensure your Laravel routes/api.php accepts POST for /api/cloudview/tables.";
+            if (showErrors) {
+              userMessage = "Failed to connect or load table list. Please check your database connection details (host, port, username, password, database name, and driver). Ensure the database server is accessible from your Laravel application's environment.";
+              if (_t.message.includes('500') || _t.message.includes('Internal Server Error')) {
+                userMessage += " A server-side error occurred. Check your Laravel logs (storage/logs/laravel.log) for details.";
+              } else if (_t.message.includes('404')) {
+                userMessage += " The API endpoint was not found. Ensure your Laravel routes are correctly defined.";
+              } else if (_t.message.includes('405')) {
+                userMessage = "HTTP 405 (Method Not Allowed). This means the server received a POST request but the route is only configured for GET. Ensure your Laravel routes/api.php accepts POST for /api/cloudview/tables.";
+              }
+              setError(userMessage);
+              setActiveDbDetails(null); // Connection failed
+              setIsCustomConnected(false);
             }
-            setError(userMessage);
-            setActiveDbDetails(null); // Connection failed
-            setIsCustomConnected(false);
           case 7:
             _context.p = 7;
             setIsLoadingTables(false);
@@ -35093,7 +35106,9 @@ var App = function App() {
             _context2.p = 7;
             _t2 = _context2.v;
             console.error("Failed to fetch data for table ".concat(tableName, ":"), _t2);
-            setError("Failed to load data for table \"".concat(tableName, "\". Check network tab or server logs."));
+            if (hasAttemptedConnection) {
+              setError("Failed to load data for table \"".concat(tableName, "\". Check network tab or server logs."));
+            }
           case 8:
             _context2.p = 8;
             setIsLoadingTableData(false);
@@ -35122,11 +35137,11 @@ var App = function App() {
     }
   };
 
-  // Effect to fetch initial table list using the default application connection on mount
-  // This will be called on first load to show the internal app DB, if any.
+  // Effect to silently try fetching initial table list using the default application connection on mount
+  // This will be called on first load to show the internal app DB if available, without showing errors
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    // Fetch using null to indicate no custom config, so it uses default
-    fetchTableList(null);
+    // Fetch using null to indicate no custom config, so it uses default, but don't show errors
+    fetchTableList(null, false);
   }, []);
 
   // Effect to fetch data whenever the selectedTable changes
@@ -35138,13 +35153,14 @@ var App = function App() {
 
   // Function to handle the "Connect" button click
   var handleConnect = function handleConnect() {
+    setHasAttemptedConnection(true);
     // Validate required fields before attempting connection
     if (!dbConfig.db_connection || !dbConfig.db_host || !dbConfig.db_port || !dbConfig.db_database || !dbConfig.db_username || !dbConfig.db_password) {
       setError("All database connection fields are required (Driver, Host, Port, Database, Username, Password).");
       return;
     }
     // Attempt to fetch table list with the new custom configuration
-    fetchTableList(dbConfig);
+    fetchTableList(dbConfig, true);
   };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
     className: "min-h-screen bg-gradient-to-br from-slate-50 to-gray-100 p-4 font-sans antialiased",
@@ -35319,9 +35335,9 @@ var App = function App() {
             })
           })
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      }), activeDbDetails && hasAttemptedConnection && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
         className: "bg-white/70 backdrop-blur-sm shadow-lg rounded-xl p-6 mb-8 border border-gray-200/50",
-        children: activeDbDetails ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
           className: "flex items-center justify-center text-emerald-700 bg-emerald-50/80 rounded-lg p-4",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
             className: "w-5 h-5 mr-2",
@@ -35344,23 +35360,6 @@ var App = function App() {
               children: activeDbDetails.db_connection.toUpperCase()
             })]
           })]
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
-          className: "flex items-center justify-center text-gray-600 bg-gray-50/80 rounded-lg p-4",
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
-            className: "w-5 h-5 mr-2",
-            fill: "none",
-            stroke: "currentColor",
-            viewBox: "0 0 24 24",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("path", {
-              strokeLinecap: "round",
-              strokeLinejoin: "round",
-              strokeWidth: 2,
-              d: "M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-            })
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("span", {
-            className: "font-medium",
-            children: "Using application's default database connection"
-          })]
         })
       }), (isLoadingTables || isLoadingTableData) && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
         className: "bg-white/80 backdrop-blur-sm shadow-xl rounded-2xl p-12 mb-8 border border-gray-200/50",
@@ -35378,7 +35377,7 @@ var App = function App() {
             children: isLoadingTables ? "Establishing connection and loading tables..." : "Loading table data..."
           })]
         })
-      }), error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
+      }), error && hasAttemptedConnection && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("div", {
         className: "bg-red-50/90 backdrop-blur-sm border-l-4 border-red-500 shadow-lg rounded-xl p-6 mb-8",
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
           className: "flex items-start",
@@ -35403,7 +35402,7 @@ var App = function App() {
             })]
           })]
         })
-      }), !isLoadingTables && !error && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+      }), !isLoadingTables && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
         className: "space-y-8",
         children: [tableList.length > 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
           className: "bg-white/90 backdrop-blur-sm shadow-xl rounded-2xl p-8 border border-gray-200/50",
@@ -35529,7 +35528,7 @@ var App = function App() {
               children: "Select a table from the dropdown above to view its contents"
             })]
           })]
-        }), !isLoadingTables && !isLoadingTableData && tableList.length === 0 && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
+        }), !isLoadingTables && !isLoadingTableData && tableList.length === 0 && hasAttemptedConnection && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)("div", {
           className: "bg-white/80 backdrop-blur-sm shadow-xl rounded-2xl p-16 text-center border border-gray-200/50",
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("svg", {
             className: "w-20 h-20 mx-auto mb-6 text-gray-300",
@@ -35547,7 +35546,7 @@ var App = function App() {
             children: "No Tables Found"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("p", {
             className: "text-gray-500",
-            children: "Connect to a database using the form above or check your application's default database configuration."
+            children: "No tables were found in the connected database. Please check your connection details."
           })]
         })]
       })]

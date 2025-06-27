@@ -13,11 +13,5 @@
     <!-- Load compiled React JavaScript as a module -->
     <script src="{{ asset('vendor/cloudview/js/app.js') }}" type="module"></script>
 
-    <!-- TEMPORARY DEBUGGING SCRIPT -->
-    <script>
-        console.log("Inline script executed: This means basic JavaScript is working.");
-        alert("Inline script executed: This means basic JavaScript is working."); // Using alert for immediate visibility
-    </script>
-    <!-- END TEMPORARY DEBUGGING SCRIPT -->
 </body>
 </html>
