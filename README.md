@@ -26,15 +26,18 @@ From the root of your Laravel application, run:
 
 composer require jasontorres/cloud-view
 
+
 Publish Assets:
 After installation, publish the package's frontend assets (JavaScript and CSS) to your application's public directory:
 
 php artisan vendor:publish --tag=cloudview-assets
 
+
 Clear Caches:
 It's good practice to clear Laravel's caches after installing a new package:
 
 php artisan optimize:clear
+
 
 Database Setup (if viewing application's default DB):
 Ensure your Laravel application's .env file has correct database credentials and run migrations to create tables (if you haven't already):
@@ -43,34 +46,54 @@ php artisan migrate
 # If you have seeders for sample data:
 # php artisan db:seed
 
+
+(Optional) Show Welcome Message After Installation:
+If you wish to see the CloudView ASCII logo and welcome message immediately after composer require (or composer update), add the following script to the scripts section of your application's composer.json file.
+
+"scripts": {
+    // ... other existing scripts ...
+    "post-install-cmd": [
+        "@php artisan cloudview:welcome",
+        "@php artisan optimize:clear" // Ensure caches are cleared for your package to be discovered
+    ],
+    "post-update-cmd": [
+        "@php artisan cloudview:welcome",
+        "@php artisan optimize:clear"
+    ]
+},
+
+After adding this, the logo will appear whenever you run composer install or composer update in your application.
+
 Usage
 Accessing the GUI
 Once installed and assets are published, start your Laravel development server:
 
 php artisan serve
 
+
 Then, open your web browser and navigate to:
 
 http://127.0.0.1:8000/cloudview
+
 
 (Replace http://127.0.0.1:8000 with your actual application URL if different.)
 
 Connecting to External Databases
 On the CloudView GUI page, you will see a "Connect to Database" form. Enter the credentials for your desired database (e.g., your Laravel Cloud PostgreSQL instance) and click "Connect".
 
-Enter these credentials for Laravel Cloud:
+Example PostgreSQL credentials for Laravel Cloud:
 
-Driver: 
+Driver: pgsql
 
-Host:
+Host: ep-cold-boat-a59adbys.aws-us-east-2.pg.laravel.cloud
 
-Port: 
+Port: 5432
 
-Database Name: 
+Database Name: main
 
-Username: 
+Username: laravel
 
-Password: 
+Password: npg_zpAtl9r3DKVc
 
 Viewing and Exporting Data
 After successfully connecting, a dropdown will populate with available tables. Select a table to view its data. You can then click "Export to CSV" to download the data.
@@ -79,6 +102,7 @@ CloudView Welcome Command
 You can also run a special Artisan command to see a welcome message and the CloudView ASCII logo in your terminal:
 
 php artisan cloudview:welcome
+
 
 Troubleshooting
 404 Not Found for app.js or app.css: Ensure you've run php artisan vendor:publish --tag=cloudview-assets and your server is restarted.
