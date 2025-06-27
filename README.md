@@ -1,9 +1,3 @@
-      _                 ___     ___               
-  ___| | ___  _   _  __| \ \   / (_) _____      __
- / __| |/ _ \| | | |/ _` |\ \ / /| |/ _ \ \ /\ / /
-| (__| | (_) | |_| | (_| | \ V / | |  __/\ V  V / 
- \___|_|\___/ \__,_|\__,_|  \_/  |_|\___| \_/\_/  
-
 Laravel CloudView
 CloudView is a powerful and intuitive GUI package for Laravel applications, designed to help developers and administrators easily view and export database information. Whether you're inspecting your application's default database or connecting to external cloud databases like PostgreSQL on Laravel Cloud, CloudView provides a seamless experience right from your browser.
 
