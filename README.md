@@ -93,11 +93,11 @@ On the CloudView GUI page, you will see a "Connect to Database" form. Enter the 
 Example PostgreSQL credentials for Laravel Cloud:
 
 - **Driver**: `pgsql`
-- **Host**: `ep-cold-boat-a59adbys.aws-us-east-2.pg.laravel.cloud`
-- **Port**: `5432`
+- **Host**: `ep-cold-boat-bys.aws-us-east-2.pg.laravel.cloud`
+- **Port**: `1111`
 - **Database Name**: `main`
 - **Username**: `laravel`
-- **Password**: `npg_zpAtl9r3DKVc`
+- **Password**: `np111Atl1111KVc`
 
 ### Viewing and Exporting Data
 
